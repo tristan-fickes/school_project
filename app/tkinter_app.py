@@ -3,7 +3,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from app.sql_commands import student_login, student_logout
+from school_project.app.sql_commands import student_login, student_logout
 
 
 active_students = []
