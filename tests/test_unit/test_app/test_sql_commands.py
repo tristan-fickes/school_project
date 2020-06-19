@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from app.sql_commands import create_connection
+from school_project.app.sql_commands import create_connection
 
 
 class TestCreateConnection(unittest.TestCase):
 
     def test_returns_database(self):
-        actual = create_connection(r"C:\Users\Tristan\Desktop\School Project\app\new.sqlite")
+        actual = create_connection(r"C:\Users\Tristan\Desktop\Projects\school_project\app\test.sqlite")
         self.assertIsNotNone(actual)
 
     @patch('app.sql_commands.sqlite3')

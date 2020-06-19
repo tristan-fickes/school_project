@@ -1,17 +1,40 @@
 from unittest import TestCase
 from unittest.mock import patch
 
-from app.tkinter_app import log_student
+from school_project.app.tkinter_app import StudentLogging, MainApplication
 
 
-class TestActivateStudent(TestCase):
+class TestMainApplication(TestCase):
     """ Tests for the activate_student function."""
 
-    @patch('app.tkinter_app.activate_student.is_active')
-    @patch('app.tkinter_app.activate_student.get')
-    def test_get_entry(self, mock_get_entry, mock_is_active):
-        """ The get call retrieves the correct entry from the user."""
+    @patch('app.tkinter_app.MainApplication.create_list_widgets')
+    @patch('app.tkinter_app.MainApplication.create_label_widgets')
+    @patch('app.tkinter_app.MainApplication.create_button_widgets')
+    @patch('app.tkinter_app.MainApplication.create_entry_widgets')
+    @patch('app.tkinter_app.MainApplication.set_window_config')
+    def setUp(
+            self,
+            mock_set_window_config,
+            mock_create_entry_widgets,
+            mock_create_button_widgets,
+            mock_create_label_widgets,
+            mock_create_list_widgets
+    ):
+        mock_set_window_config = "config"
+        self.mock_set_window_config = mock_set_window_config
+        mock_create_entry_widgets = "entry"
+        self.mock_create_entry_widgets = mock_create_entry_widgets
+        mock_create_button_widgets = "button"
+        self.mock_create_button_widgets = mock_create_button_widgets
+        mock_create_label_widgets = "label"
+        self.mock_create_label_widgets = mock_create_label_widgets
+        mock_create_list_widgets = "list"
+        self.mock_create_list_widgets = mock_create_list_widgets
+        app = MainApplication()
 
-        mock_get_entry.return_value = 1234
-        mock_is_active.return_value = False
+    def test_init_calls_methods(self):
+
+        with self.subTest():
+            self.mock_set_window_config.assert_called_once_with()
+
 
