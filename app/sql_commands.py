@@ -106,8 +106,44 @@ def add_student_record(first_name, last_name, student_id):
 
     add_student_query = f"""
         INSERT INTO
-            students (first_name, last_name, student_id)
+            students(first_name, last_name, student_id)
         VALUES
-            ({first_name}, {last_name}, {student_id});
+            ('{first_name}', '{last_name}', {student_id})
         """
-    execute_read_query(db_connection, add_student_query)
+    execute_query(db_connection, add_student_query)
+
+
+def count_total_logins(student_id):
+
+    read_logins = f"""
+        SELECT
+            students.first_name,
+            students.last_name,
+            powerpass.student_id, COUNT(*)
+        FROM powerpass 
+            INNER JOIN students ON students.student_id = powerpass.student_id
+        WHERE
+            powerpass.student_id = {student_id}
+    """
+    execute_read_query(db_connection, read_logins)
+
+
+#############
+create_students_table = """
+CREATE TABLE IF NOT EXISTS students (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    first_name TEXT NOT NULL,
+    last_name TEXT NOT NULL,
+    student_id INTEGER NOT NULL
+);
+"""
+
+create_powerpass_table = """
+CREATE TABLE IF NOT EXISTS powerpass (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    login_time TEXT,
+    logout_time TEXT,
+    student_id INTEGER NOT NULL,
+    FOREIGN KEY (student_id) REFERENCES students (student_id)
+);
+"""
